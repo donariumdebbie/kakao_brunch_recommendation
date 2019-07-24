@@ -1,0 +1,8 @@
+*.un~
+*.pyc
+*.swp
+*.json
+res/
+.DS_Store
+recommend.txt
+__pycache__
