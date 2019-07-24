@@ -195,7 +195,7 @@ class RecommendMarch(object):
                 user_seen_magazines = set(self._get_seen_magazines(seen_articles, metadata_df))
 
                 recent_following_articles, _ = self._filter_df_articles(meta_recent_df, user_following_authors)
-                recent_seen_articles, _ = self._filter_df_articles(meta_recent_df, user_seen_authors)
+                recent_seen_authors_articles, _ = self._filter_df_articles(meta_recent_df, user_seen_authors)
                 recent_seen_magazine_articles, _= self._filter_df_articles_key(meta_recent_df, user_seen_magazines, 'magazine_id')
 
                 popular_following_articles, _ = self._filter_df_articles(most_popular_df, user_following_authors)
@@ -212,7 +212,7 @@ class RecommendMarch(object):
 
 
                 if len(checkrec100) < self.topn:
-                    for article in recent_seen_articles:
+                    for article in recent_seen_authors_articles:
                         if article not in checkrec100 and article not in seens:
                             checkrec100.add(article)
                             rec100.append(article)
@@ -256,6 +256,6 @@ class RecommendMarch(object):
                 fout.write(f'{user} {" ".join(rec100[:self.topn])}\n')
 
 if __name__ == '__main__':
-    # fire.Fire(RecommendMarch) 
-    RecommendMarch(from_dtm='2019021400', to_dtm='2019030100').recommend(os.path.join(conf.data_root, 'predict/dev.users'), 'recommend.txt')
-    # RecommendMarch(from_dtm='2019021400', to_dtm='2019030100').recommend(os.path.join(conf.data_root, 'predict/test.users'), 'recommend.txt')
+    # fire.Fire(RecommendMarch) # 명령어 직접 넣어서 돌리고 싶은경우 
+    # RecommendMarch(from_dtm='2019021400', to_dtm='2019030100').recommend(os.path.join(conf.data_root, 'predict/dev.users'), 'recommend-3000.txt') # 3천명 파일 생성
+    RecommendMarch(from_dtm='2019021400', to_dtm='2019030100').recommend(os.path.join(conf.data_root, 'predict/test.users'), 'recommend.txt') # 5천명 파일 생성
